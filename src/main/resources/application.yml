@@ -1,13 +1,16 @@
 spring:
-  # H2 인메모리 — 앱 시작 시 BATCH_* 메타 테이블이 자동 생성됩니다.
+  # 파일 기반 H2 — 메타 테이블이 실행 사이에 보존됩니다(재시작 데모에 필요).
+  #   ./gradlew clean 하면 build/ 와 함께 초기화됩니다.
   datasource:
-    url: jdbc:h2:mem:hellobatch;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:file:./build/h2db/tutorial;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
     username: sa
     password:
   batch:
     jdbc:
-      initialize-schema: always   # 메타 테이블 스키마 자동 초기화
+      initialize-schema: always   # BATCH_* 메타 테이블 스키마 자동 생성
+    job:
+      name: ${job.name:helloJob}  # 실행할 잡 선택 (기본 helloJob)
   h2:
     console:
-      enabled: true               # http://localhost:8080/h2-console 로 메타 테이블 확인 가능
+      enabled: true               # http://localhost:8080/h2-console 로 메타 테이블 확인
