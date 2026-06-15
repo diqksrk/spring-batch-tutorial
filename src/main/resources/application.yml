@@ -1,0 +1,13 @@
+spring:
+  # H2 인메모리 — 앱 시작 시 BATCH_* 메타 테이블이 자동 생성됩니다.
+  datasource:
+    url: jdbc:h2:mem:hellobatch;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  batch:
+    jdbc:
+      initialize-schema: always   # 메타 테이블 스키마 자동 초기화
+  h2:
+    console:
+      enabled: true               # http://localhost:8080/h2-console 로 메타 테이블 확인 가능
